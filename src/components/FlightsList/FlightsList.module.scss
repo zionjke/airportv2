@@ -1,0 +1,47 @@
+.list {
+  padding: 0 45px 0 45px;
+
+  &_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+
+    h2 {
+      font-size: 48px;
+      color: #FFCF18;
+    }
+
+    img {
+      margin-left: 15px;
+      width: 70px;
+      height: 70px;
+      //transform: rotate(-20deg);
+    }
+  }
+
+  table {
+    margin-top: 45px;
+    border-collapse: collapse;
+    width: 100%;
+
+    tr {
+      border-bottom: 1px solid gray;
+    }
+
+    th {
+      padding: 12px;
+      color: #FFDB00;
+      font-size: 22px;
+      text-align: left;
+    }
+
+    td {
+      padding: 12px;
+      color: #FFFFFF;
+      font-size: 22px;
+    }
+
+  }
+
+}
