@@ -29,7 +29,7 @@ export const FlightItem: React.FC<Props> = (props) => {
             <td>{moment(obj.arrival.scheduledTime).format('HH:mm')}</td>
             <td>{city.length && city[0].nameCity}</td>
             <td>{airline.length && airline[0].nameAirline}</td>
-            <td>{obj.arrival.terminal}</td>
+            <td style={{textAlign:'center'}}>{obj.arrival.terminal}</td>
             <td>
                 {
                     obj.arrival.estimatedTime !== null
