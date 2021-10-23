@@ -22,8 +22,8 @@ export const FlightItem: React.FC<Props> = (props) => {
         return state.app.airlines.filter(airline => airline.codeIataAirline === obj.airline.iataCode)
     })
 
-    let cityName: string;
-    switch (city[0].nameCity) {
+    let cityName;
+    switch (city[0]?.nameCity) {
         case 'Chernovtsy':
             cityName = 'Chernivtsi'
             break;
@@ -57,10 +57,15 @@ export const FlightItem: React.FC<Props> = (props) => {
         case 'Ternopol':
             cityName = 'Ternopil'
             break;
+        case 'Nowy Dwor Mazowiecki':
+            cityName = 'Nowy Dwor'
+            break;
+        case undefined:
+            cityName = ''
+            break;
         default:
             cityName = city[0].nameCity
     }
-
 
     return (
         <tr>
@@ -68,7 +73,7 @@ export const FlightItem: React.FC<Props> = (props) => {
             <td>{moment(obj.arrival.scheduledTime).format('HH:mm')}</td>
             <td>{city.length && cityName}</td>
             <td>{airline.length && airline[0].nameAirline}</td>
-            <td style={{textAlign:'center'}}>{obj.arrival.terminal}</td>
+            <td style={{textAlign: 'center'}}>{obj.arrival.terminal}</td>
             <td>
                 {
                     obj.arrival.estimatedTime !== null

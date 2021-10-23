@@ -23,6 +23,7 @@ export const FlightsList: React.FC<Props> = (props) => {
     let startIndex = (count - 1) * FLIGHT_PER_PAGE
     let selectedFlights = filteredFlights.slice(startIndex, startIndex + FLIGHT_PER_PAGE)
 
+    console.log(selectedFlights)
 
     useEffect(() => {
         const id = setInterval(() => {
