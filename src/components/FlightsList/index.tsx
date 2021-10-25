@@ -18,8 +18,8 @@ export const FlightsList: React.FC<Props> = (props) => {
     const dispatch = useDispatch()
 
     let now = moment().subtract('10', "minutes").format('YYYY-MM-DDTHH:mm:ss.SSS')
-    let filteredFlights = arrivalFlights.filter(item => item.arrival.scheduledTime >= now).slice(0, 42)
-    let FLIGHT_PER_PAGE = 21;
+    let filteredFlights = arrivalFlights.filter(item => item.arrival.scheduledTime >= now).slice(0, 46)
+    let FLIGHT_PER_PAGE = 23;
     let startIndex = (count - 1) * FLIGHT_PER_PAGE
     let selectedFlights = filteredFlights.slice(startIndex, startIndex + FLIGHT_PER_PAGE)
 
@@ -38,7 +38,7 @@ export const FlightsList: React.FC<Props> = (props) => {
     useEffect(() => {
 
         const intervalId = setInterval(() => {
-            if (filteredFlights.length > 21) {
+            if (filteredFlights.length > 23) {
                 if (startIndex === FLIGHT_PER_PAGE) {
                     setCount(1)
                 } else {
