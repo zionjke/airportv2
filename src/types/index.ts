@@ -1,4 +1,4 @@
-export type ArrivalFlightType = {
+export type FLightType = {
     airline: {
         iataCode: string
         icaoCode: string

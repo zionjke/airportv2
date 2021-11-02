@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import {Header} from "./components/Header";
-import {FlightsList} from "./components/FlightsList";
 import {Footer} from "./components/Footer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {fetchAirlines, fetchAirports, fetchCities} from "./store/appReducer";
+import {Route} from 'react-router-dom';
+import {Arrival} from "./pages/Arrival";
+import { Departure } from './pages/Departure';
 
 
 function App() {
@@ -19,7 +21,8 @@ function App() {
         <div>
             <div className="container">
                 <Header/>
-                <FlightsList/>
+                <Route exact path={'/arrival'} component={Arrival}/>
+                <Route exact path={'/departure'} component={Departure}/>
             </div>
             <Footer/>
         </div>

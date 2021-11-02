@@ -1,19 +1,17 @@
-import React from 'react';
-import {AirlineType, AirportType, ArrivalFlightType, CityType} from "../../types";
+import React from "react";
 import {useSelector} from "react-redux";
 import {RootState} from "../../store";
+import {AirlineType, AirportType, CityType, FLightType} from "../../types";
 import moment from "moment";
 
-
 type Props = {
-    obj: ArrivalFlightType
-};
+    obj: FLightType
+}
 
-export const FlightItem: React.FC<Props> = (props) => {
-
+export const FlightItemDeparture: React.FC<Props> = (props) => {
     const {obj} = props
     const airport = useSelector<RootState, AirportType[]>(state => {
-        return state.app.airports.filter(airport => airport.codeIataAirport === obj.departure.iataCode)
+        return state.app.airports.filter(airport => airport.codeIataAirport === obj.arrival.iataCode)
     })
     const city = useSelector<RootState, CityType[]>(state => {
         return state.app.cities.filter(city => city.codeIataCity === airport[0].codeIataCity)
@@ -70,14 +68,15 @@ export const FlightItem: React.FC<Props> = (props) => {
     return (
         <tr>
             <td>{obj.flight.iataNumber}</td>
-            <td>{moment(obj.arrival.scheduledTime).format('HH:mm')}</td>
+            <td>{moment(obj.departure.scheduledTime).format('HH:mm')}</td>
             <td>{city.length && cityName}</td>
             <td>{airline.length && airline[0].nameAirline}</td>
-            <td style={{textAlign: 'center'}}>{obj.arrival.terminal}</td>
+            <td style={{textAlign: 'center'}}>{obj.departure.terminal}</td>
+            <td>{obj.departure.gate}</td>
             <td>
                 {
-                    obj.arrival.estimatedTime !== null
-                        ? `Очiкується о ${moment(obj.arrival.estimatedTime).format('HH:mm')}`
+                    obj.departure.estimatedTime !== obj.departure.scheduledTime && obj.departure.estimatedTime !== null
+                        ? `Очiкується о ${moment(obj.departure.estimatedTime).format('HH:mm')}`
                         : 'За розкладом'
                 }
             </td>

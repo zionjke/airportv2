@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AirlineType, AirportType, ArrivalFlightType, CityType} from "../types";
+import {AirlineType, AirportType, CityType, FLightType} from "../types";
 import {api} from "../api";
 
 export const fetchCities = createAsyncThunk('airport/fetchCities', async (param, {dispatch, rejectWithValue}) => {
@@ -38,13 +38,23 @@ export const fetchArrivalFlights = createAsyncThunk('airport/fetchArrivalFlights
     }
 })
 
+export const fetchDepartureFlights = createAsyncThunk('airport/fetchDepartureFlights', async (param, {dispatch, rejectWithValue}) => {
+    try {
+        const {data} = await api.fetchDepartureFlights()
+        return data
+    } catch (e) {
+        return rejectWithValue(null)
+    }
+})
+
 export const appSlice = createSlice({
     name: 'airport',
     initialState: {
         cities: [] as CityType[],
         airports: [] as AirportType[],
         airlines: [] as AirlineType[],
-        arrivalFlights: [] as ArrivalFlightType[],
+        arrivalFlights: [] as FLightType[],
+        departureFlights: [] as FLightType[]
     },
     reducers: {},
     extraReducers: {
@@ -57,8 +67,11 @@ export const appSlice = createSlice({
         [fetchAirlines.fulfilled.type]: (state, action: PayloadAction<AirlineType[]>) => {
             state.airlines = action.payload
         },
-        [fetchArrivalFlights.fulfilled.type]: (state, action: PayloadAction<ArrivalFlightType[]>) => {
+        [fetchArrivalFlights.fulfilled.type]: (state, action: PayloadAction<FLightType[]>) => {
             state.arrivalFlights = action.payload
+        },
+        [fetchDepartureFlights.fulfilled.type]: (state, action: PayloadAction<FLightType[]>) => {
+            state.departureFlights = action.payload
         },
     }
 })

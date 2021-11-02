@@ -1,36 +1,37 @@
-import React, {useEffect} from 'react';
-import styles from './FlightsList.module.scss'
-import arrivalIcon from '../../assets/arrival_yellow.svg'
+import * as React from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from '../../store';
-import {ArrivalFlightType} from "../../types";
-import {fetchArrivalFlights} from "../../store/appReducer";
-import {FlightItem} from "../FlightItem";
+import {RootState} from "../../store";
+import {FLightType} from "../../types";
 import moment from "moment";
+import {fetchDepartureFlights} from "../../store/appReducer";
+import styles from "../Arrival/Arrival.module.scss";
+import departureIcon from "../../assets/departure_yellow.svg";
+import {FlightItemDeparture} from "../../components/FlightItemDeparture";
 
+type Props = {
 
-type Props = {};
+};
 
-export const FlightsList: React.FC<Props> = (props) => {
+export const Departure = (props: Props) => {
     const [count, setCount] = React.useState<number>(1)
     const [page,setPage] = React.useState<boolean>(false)
-    const arrivalFlights = useSelector<RootState, ArrivalFlightType[]>(state => state.app.arrivalFlights)
+    const departureFlights = useSelector<RootState, FLightType[]>(state => state.app.departureFlights)
     const dispatch = useDispatch()
 
-    let now = moment().subtract('10', "minutes").format('YYYY-MM-DDTHH:mm:ss.SSS')
-    let filteredFlights = arrivalFlights.filter(item => item.arrival.scheduledTime >= now).slice(0, 46)
+    let now = moment().add(1, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSS')
+    let filteredFlights = departureFlights.filter(item => item.departure.scheduledTime >= now).slice(0, 46)
     let FLIGHT_PER_PAGE = 23;
     let startIndex = (count - 1) * FLIGHT_PER_PAGE
     let selectedFlights = filteredFlights.slice(startIndex, startIndex + FLIGHT_PER_PAGE)
 
-    console.log(selectedFlights)
 
     useEffect(() => {
         const id = setInterval(() => {
-            dispatch(fetchArrivalFlights())
+            dispatch(fetchDepartureFlights())
         }, 300000);
 
-        dispatch(fetchArrivalFlights())
+        dispatch(fetchDepartureFlights())
 
         return () => clearInterval(id);
     }, [dispatch])
@@ -56,8 +57,8 @@ export const FlightsList: React.FC<Props> = (props) => {
     return (
         <div className={styles.list}>
             <div className={styles.list_title}>
-                <h2>ПРИЛІТ</h2>
-                <img src={arrivalIcon} alt=""/>
+                <h2>ВІДЛІТ</h2>
+                <img src={departureIcon} alt=""/>
             </div>
             <table className={styles.list_shedule}>
                 <tr>
@@ -66,10 +67,11 @@ export const FlightsList: React.FC<Props> = (props) => {
                     <th>{'Призначення'}</th>
                     <th>{'Перевізник'}</th>
                     <th>{'Термінал'}</th>
+                    <th>{'Гейт'}</th>
                     <th>{'Статус'}</th>
                 </tr>
                 {
-                    selectedFlights.map((obj, index) => <FlightItem key={index} obj={obj}/>)
+                    selectedFlights.map((obj, index) => <FlightItemDeparture key={index} obj={obj}/>)
                 }
             </table>
         </div>
