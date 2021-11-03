@@ -70,7 +70,7 @@ export const FlightItemDeparture: React.FC<Props> = (props) => {
             <td>{obj.flight.iataNumber}</td>
             <td>{moment(obj.departure.scheduledTime).format('HH:mm')}</td>
             <td>{city.length && cityName}</td>
-            <td>{airline.length && airline[0].nameAirline}</td>
+            <td style={{textTransform:'capitalize'}}>{airline.length && airline[0].nameAirline.toLowerCase()}</td>
             <td style={{textAlign: 'center'}}>{obj.departure.terminal}</td>
             <td>{obj.departure.gate}</td>
             <td>
