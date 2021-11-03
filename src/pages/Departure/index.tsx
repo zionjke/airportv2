@@ -16,10 +16,12 @@ type Props = {
 export const Departure = (props: Props) => {
     const [count, setCount] = React.useState<number>(1)
     const [page,setPage] = React.useState<boolean>(false)
-    const departureFlights = useSelector<RootState, FLightType[]>(state => state.app.departureFlights)
+    const departureFlights = useSelector<RootState, FLightType[]>(state => {
+        return state.app.departureFlights.filter(flight => flight.departure.gate !== null)
+    })
     const dispatch = useDispatch()
 
-    let now = moment().add(1, 'hours').format('YYYY-MM-DDTHH:mm:ss.SSS')
+    let now = moment().format('YYYY-MM-DDTHH:mm:ss.SSS')
     let filteredFlights = departureFlights.filter(item => item.departure.scheduledTime >= now).slice(0, 46)
     let FLIGHT_PER_PAGE = 23;
     let startIndex = (count - 1) * FLIGHT_PER_PAGE
