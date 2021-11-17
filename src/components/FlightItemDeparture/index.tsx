@@ -75,7 +75,7 @@ export const FlightItemDeparture: React.FC<Props> = (props) => {
             <td>{obj.departure.gate}</td>
             <td>
                 {
-                    obj.departure.scheduledTime === obj.departure.estimatedTime
+                    obj.departure.scheduledTime === obj.departure.estimatedTime || obj.departure.estimatedTime === null
                         ? 'За розкладом'
                         : `Очiкується о ${moment(obj.departure.estimatedTime).format('HH:mm')}`
                 }

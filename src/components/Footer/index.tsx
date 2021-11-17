@@ -7,9 +7,11 @@ export const Footer: React.FC = () => {
     return (
         <div className={styles.footer}>
             <div className={styles.footer_text}>
-                <span>*Текст отказа от ответсвенности</span>
+                <span>Дані для відображення взяті з ресурсу Aviation-Edge. ТОВ «Урбан Менеджмент» не несе жодної відповідальності за будь-які збитки, які можуть бути заподіяні в будь-якій формі за рахунок використання, неповноти або неправильності інформації, розміщеної на цьому табло.</span>
             </div>
-            <img src={logo} alt=""/>
+            <div>
+                <img src={logo} alt=""/>
+            </div>
         </div>
     );
 };

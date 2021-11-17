@@ -9,11 +9,12 @@
     height: 110px;
   }
   &_text {
+    width: 80%;
     display: flex;
     align-items: center;
+    justify-content: center;
     span {
       color: white;
-      font-style: italic;
     }
 
   }
